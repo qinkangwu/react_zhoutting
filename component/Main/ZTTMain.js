@@ -31,73 +31,33 @@ export default class ZTTMain extends Component {
     componentDidMount(){
         console.log(Platform)
     }
+    renderTabBarItem(title,selectedTab,icon,selectedIcon,component){
+        return(
+            <TabNavigator.Item
+                selected={this.state.selectedTab === selectedTab}
+                title={title}
+                renderIcon={() => <Image style={styles.iconStyle} source={{uri:icon}} />}
+                renderSelectedIcon={() => <Image style={styles.iconStyle} source={{uri:selectedIcon}} />}
+                onPress={()=>{this.setState({selectedTab:selectedTab})}}
+            >
+                <Navigator
+                    initialRoute={{name: title,component:component}}
+                    configureScene={()=>Navigator.SceneConfigs.PushFromRight}
+                    renderScene={(route, navigator) => {
+                        let Component = route.component;
+                        return <Component {...route.params} navigator={navigator} />
+                    }}
+                />
+            </TabNavigator.Item>
+        )
+    }
     render() {
         return (
             <TabNavigator>
-                <TabNavigator.Item
-                    selected={this.state.selectedTab === 'home'}
-                    title="Home"
-                    renderIcon={() => <Image style={styles.iconStyle} source={{uri:'icon_tabbar_homepage'}} />}
-                    renderSelectedIcon={() => <Image style={styles.iconStyle} source={{uri:'icon_tabbar_homepage_selected'}} />}
-                    onPress={()=>{this.setState({selectedTab:'home'})}}
-                >
-                    <Navigator
-                        initialRoute={{name: '首页',component:ZTTHome}}
-                        configureScene={()=>Navigator.SceneConfigs.PushFromRight}
-                        renderScene={(route, navigator) => {
-                            let Component = route.component;
-                            return <Component {...route.params} navigator={navigator} />
-                        }}
-                    />
-                </TabNavigator.Item>
-                <TabNavigator.Item
-                    selected={this.state.selectedTab === 'shop'}
-                    title="Shop"
-                    renderIcon={() => <Image style={styles.iconStyle} source={{uri:'icon_tabbar_merchant_normal'}} />}
-                    renderSelectedIcon={() => <Image style={styles.iconStyle} source={{uri:'icon_tabbar_merchant_selected'}} />}
-                    onPress={()=>{this.setState({selectedTab:'shop'})}}
-                >
-                    <Navigator
-                        initialRoute={{name: '商家',component:ZTTShop}}
-                        configureScene={()=>Navigator.SceneConfigs.PushFromRight}
-                        renderScene={(route, navigator) => {
-                            let Component = route.component;
-                            return <Component {...route.params} navigator={navigator} />
-                        }}
-                    />
-                </TabNavigator.Item>
-                <TabNavigator.Item
-                    selected={this.state.selectedTab === 'mine'}
-                    title="Mine"
-                    renderIcon={() => <Image style={styles.iconStyle} source={{uri:'icon_tabbar_mine'}} />}
-                    renderSelectedIcon={() => <Image style={styles.iconStyle} source={{uri:'icon_tabbar_mine_selected'}} />}
-                    onPress={()=>{this.setState({selectedTab:'mine'})}}
-                >
-                    <Navigator
-                        initialRoute={{name: '我的',component:ZTTMine}}
-                        configureScene={()=>Navigator.SceneConfigs.PushFromRight}
-                        renderScene={(route, navigator) => {
-                            let Component = route.component;
-                            return <Component {...route.params} navigator={navigator} />
-                        }}
-                    />
-                </TabNavigator.Item>
-                <TabNavigator.Item
-                    selected={this.state.selectedTab === 'more'}
-                    title="More"
-                    renderIcon={() => <Image style={styles.iconStyle} source={{uri:'icon_tabbar_misc'}} />}
-                    renderSelectedIcon={() => <Image style={styles.iconStyle} source={{uri:'icon_tabbar_misc_selected'}} />}
-                    onPress={()=>{this.setState({selectedTab:'more'})}}
-                >
-                    <Navigator
-                        initialRoute={{name: '更多',component:ZTTMore}}
-                        configureScene={()=>Navigator.SceneConfigs.PushFromRight}
-                        renderScene={(route, navigator) => {
-                            let Component = route.component;
-                            return <Component {...route.params} navigator={navigator} />
-                        }}
-                    />
-                </TabNavigator.Item>
+                {this.renderTabBarItem('首页','home','icon_tabbar_homepage','icon_tabbar_homepage_selected',ZTTHome)}
+                {this.renderTabBarItem('商店','shop','icon_tabbar_merchant_normal','icon_tabbar_merchant_selected',ZTTShop)}
+                {this.renderTabBarItem('我的','mine','icon_tabbar_mine','icon_tabbar_mine_selected',ZTTMine)}
+                {this.renderTabBarItem('更多','more','icon_tabbar_misc','icon_tabbar_misc_selected',ZTTMore)}
             </TabNavigator>
         );
     }
