@@ -9,15 +9,19 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View
+    View,
+    TouchableOpacity
 } from 'react-native';
-
-
-export default class ZTTMore extends Component {
+export default class ZTTHomeDetail extends Component {
+    popToHome(){
+        this.props.navigator.pop();
+    }
     render() {
         return (
             <View style={styles.container}>
-                <Text>更多</Text>
+                <TouchableOpacity onPress={this.popToHome.bind(this)}>
+                    <Text>首页详情</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -28,7 +32,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#abcdef',
     },
     welcome: {
         fontSize: 20,
