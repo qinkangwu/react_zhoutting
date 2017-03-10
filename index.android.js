@@ -9,13 +9,21 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator
 } from 'react-native';
-import Main from './component/Main/ZTTMain';
+import Launch from './component/Main/ZTTLaunchImage'
 export default class zhoutting extends Component {
   render() {
     return (
-      <Main />
+        <Navigator
+            initialRoute={{name: '加载',component:Launch}}
+            configureScene={()=>Navigator.SceneConfigs.PushFromRight}
+            renderScene={(route, navigator) => {
+              let Component = route.component;
+              return <Component {...route.params} navigator={navigator} />
+            }}
+        />
     );
   }
 }

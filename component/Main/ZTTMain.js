@@ -31,7 +31,7 @@ export default class ZTTMain extends Component {
     componentDidMount(){
         console.log(Platform)
     }
-    renderTabBarItem(title,selectedTab,icon,selectedIcon,component){
+    renderTabBarItem(title,selectedTab,icon,selectedIcon,component,badgeText){
         return(
             <TabNavigator.Item
                 selected={this.state.selectedTab === selectedTab}
@@ -39,6 +39,8 @@ export default class ZTTMain extends Component {
                 renderIcon={() => <Image style={styles.iconStyle} source={{uri:icon}} />}
                 renderSelectedIcon={() => <Image style={styles.iconStyle} source={{uri:selectedIcon}} />}
                 onPress={()=>{this.setState({selectedTab:selectedTab})}}
+                selectedTitleStyle={styles.selectedTitleStyle}
+                badgeText={badgeText}
             >
                 <Navigator
                     initialRoute={{name: title,component:component}}
@@ -67,5 +69,8 @@ const styles = StyleSheet.create({
     iconStyle:{
         width:Platform.OS==='ios'?30:25,
         height:Platform.OS==='ios'?30:25
+    },
+    selectedTitleStyle:{
+        color:'orange'
     }
 });
