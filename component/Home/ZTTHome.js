@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#e8e8e8',
     },
     navRightImageStyle:{
-        width:30,
-        height:30,
+        width:Platform.OS == 'ios'?30:24,
+        height:Platform.OS == 'ios'?30:24,
         marginLeft:5
     },
     navBarStyle:{
